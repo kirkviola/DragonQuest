@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Chest
+    class Item
     {
-        public int Difficulty { get; set; }
-        public Item Item { get; set; }
-
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Value { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace DragonQuest
         public int Luck { get; set; }
         public int Attack { get; set; }
         public int HealthPoints { get; set; }
+        public List<Item> Inventory { get; set; }
+        public List<Gem> Gems { get; set; }
 
         public Player (string name, int build) 
         {
@@ -36,6 +38,8 @@ namespace DragonQuest
                 this.Attack = rand.Next(8, 15);
                 this.HealthPoints = rand.Next(50, 56);
             }
+
+            this.Inventory = new List<Item>();
         }
 
 

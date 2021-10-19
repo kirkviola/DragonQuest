@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Potion
+    class Potion : Item
     {
         public int Strength { get; set; }
     }
