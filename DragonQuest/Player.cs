@@ -13,11 +13,12 @@ namespace DragonQuest
         public int Attack { get; set; }
         public int HealthPoints { get; set; }
         public List<Item> Inventory { get; set; }
-        public List<Gem> Gems { get; set; }
+        public int GemCount { get; set; }
 
-        public Player (string name, int build) 
+        public Player () 
         {
-            this.Name = name;
+            GetName();
+            var build = GetBuild();
             var rand = new Random();
             //Invalid Random numbers will be handled in the main method
             if(build == 1)
@@ -40,6 +41,26 @@ namespace DragonQuest
             }
 
             this.Inventory = new List<Item>();
+        }
+
+        public void GetName()
+        {
+            Console.Write("Enter your name, adventurer: ");
+            this.Name = Console.ReadLine();
+            
+        }
+        public int GetBuild()
+        {
+            Console.WriteLine("Would you like 1.) an adventure of great luck, 2.) an adventure " +
+                            "of great strength, or 3.) an adventure of great stamina? ");
+            Console.Write("Please enter 1, 2, or 3: ");
+            var build = Convert.ToInt32(Console.ReadLine());
+            if(build != 1 && build != 2 && build != 3)
+            {
+                Console.WriteLine("What was that? please try again.");
+                GetBuild();
+            }
+            return build;
         }
 
 

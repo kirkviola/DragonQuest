@@ -10,24 +10,22 @@ namespace DragonQuest
     {
         public Chest Chest { get; set; }
         public Monster Monster { get; set; }
-        public Gem Gem { get; set; }
+        public bool Gem { get; set; } = false;
 
-        public Room(int init) {
+        public Room() { }
 
-            if (init == 1)
+        public void RoomCreater(int num)
+        {
+            if(num == 1)
             {
-
-                this.Gem = new Gem();
-                // Add initializer later
-                this.Monster = new Monster();
-            }
-            else if (init == 2)
-            {
-                // Add initializer later
-                this.Monster = new Monster();
+                // Put initializers in here
+                this.Chest = new Chest();
             }
             else
-                this.Chest = new Chest();
+            {
+                // Put initializers in
+                this.Monster = new Monster();
+            }
         }
     }
 }
