@@ -63,6 +63,15 @@ namespace DragonQuest
             return build;
         }
 
+        public void Status()
+        {
+            Console.Write("Your inventory contains: ");
+            foreach(var item in this.Inventory)
+            {
+                Console.Write($"{item} ");
+            }
+        }
+
 
     }
 }
