@@ -13,6 +13,7 @@ namespace DragonQuest
             this.Name = "Spider";
             this.Strength = 5;
             this.HealthPoints = 20;
+            this.Item = new Potion();
         }
     }
 }

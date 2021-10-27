@@ -6,7 +6,7 @@ namespace DragonQuest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var dungeon = new Dungeon();
         }
     }
 }

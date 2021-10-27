@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragonQuest.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
         public int Luck { get; set; }
@@ -20,7 +21,7 @@ namespace DragonQuest
             GetName();
             var build = GetBuild();
             var rand = new Random();
-            //Invalid Random numbers will be handled in the main method
+            // Invalid numbers are handled in the GetBuild method
             if(build == 1)
             {
                 this.Luck = rand.Next(11, 20);
@@ -41,6 +42,7 @@ namespace DragonQuest
             }
 
             this.Inventory = new List<Item>();
+            
         }
 
         public void GetName()
@@ -57,21 +59,45 @@ namespace DragonQuest
             var build = Convert.ToInt32(Console.ReadLine());
             if(build != 1 && build != 2 && build != 3)
             {
-                Console.WriteLine("What was that? please try again.");
+                Console.WriteLine("What was that? Please try again.");
                 GetBuild();
             }
             return build;
         }
 
+        // Update this method as items are added to the game.
         public void Status()
         {
             Console.Write("Your inventory contains: ");
+         
+            var PotionCounter = 0;
+            var TonicCounter = 0;
+
             foreach(var item in this.Inventory)
             {
-                Console.Write($"{item} ");
+                if(item.GetType() == typeof(Potion))
+                {
+                    PotionCounter += 1;
+                }
+                if(item.GetType() == typeof(Tonic))
+                {
+                    TonicCounter += 1;
+                }
+
+        
             }
+            Console.Write($"{PotionCounter} potions, and {TonicCounter} tonics, and {GemCount} gems.");
+            Console.WriteLine($"Your current stats are {HealthPoints} healthpoints, {Luck} luck, and " +
+                                  $"{Attack} attack.");
         }
 
+        public bool IsDead()
+        {
+            if (HealthPoints <= 0)
+                return true;
+
+            return false;
+        }
 
     }
 }

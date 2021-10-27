@@ -12,6 +12,7 @@ namespace DragonQuest
         public int Strength { get; set; }
         public int HealthPoints { get; set; }
         public Random Roll { get; set; }
+        public Item Item { get; set; }
 
         public Monster() { }
 
