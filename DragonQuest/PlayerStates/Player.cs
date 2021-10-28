@@ -1,4 +1,5 @@
 ﻿using DragonQuest.Items;
+using DragonQuest.PlayerStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,18 @@ namespace DragonQuest
 {
     public class Player
     {
+        private State state;
+
         public string Name { get; set; }
         public int Luck { get; set; }
         public int Attack { get; set; }
         public int HealthPoints { get; set; }
         public List<Item> Inventory { get; set; }
+        public Dungeon Dungeon { get; set; }
+        public Coordinate Coordinate { get; set; }
         public int GemCount { get; set; }
 
-        public Player () 
+        public Player (Dungeon dungeon) 
         {
             GetName();
             var build = GetBuild();
@@ -42,7 +47,8 @@ namespace DragonQuest
             }
 
             this.Inventory = new List<Item>();
-            
+            this.Coordinate = new Coordinate();
+            this.Dungeon = dungeon;
         }
 
         public void GetName()
@@ -98,6 +104,19 @@ namespace DragonQuest
 
             return false;
         }
+
+        public Room GetLocation(Dungeon dungeon)
+        {
+            return dungeon.Dimensions[Coordinate.X, Coordinate.Y];
+        }
+
+        public void StateSelector()
+        {
+            var room = GetLocation(this.Dungeon);
+            if(room.Backward)
+                this.state = 
+        }
+
 
     }
 }

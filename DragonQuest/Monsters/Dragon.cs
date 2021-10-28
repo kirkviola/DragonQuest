@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Dragon : Monster
+    public class Dragon : Monster
     {
         public Dragon()
         {
             this.Name = "Dragon";
-            this.Strength = 12;
+            this.Strength = 15;
             this.HealthPoints = 100;
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Spider : Monster
+    public class Spider : Monster
     {
         public Spider()
         {

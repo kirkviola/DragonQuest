@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Room
+    public class Room
     {
         public Chest Chest { get; set; }
         public Monster Monster { get; set; }

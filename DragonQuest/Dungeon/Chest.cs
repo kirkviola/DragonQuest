@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Chest
+    public class Chest
     {
         public List<Item> Contents { get; set; }
 

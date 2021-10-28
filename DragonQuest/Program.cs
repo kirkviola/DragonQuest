@@ -7,6 +7,13 @@ namespace DragonQuest
         static void Main(string[] args)
         {
             var dungeon = new Dungeon();
+            var player = new Player(dungeon);
+            var GameOver = false;
+
+            while (!GameOver)
+            {
+
+            }
         }
     }
 }

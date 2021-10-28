@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest.Monsters
 {
-    class Goblin : Monster
+    public class Goblin : Monster
     {
         public Goblin ()
         {

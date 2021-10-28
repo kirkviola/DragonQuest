@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    class Dungeon
+    public class Dungeon
     {
         public Room[,] Dimensions { get; set; }
         public int Layout { get; set; }
@@ -36,6 +36,9 @@ namespace DragonQuest
             RoomInitializer();
             MonsterOrChest();
             GemAlg();
+            // Ensures the initial room in the dungeon is empty
+            this.Dimensions[0, 0].Chest = null;
+            this.Dimensions[0, 0].Monster = null;
             Console.WriteLine(DungeonTexts[0]);
         }
 
