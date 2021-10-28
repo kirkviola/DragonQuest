@@ -50,7 +50,6 @@ namespace DragonQuest
 
             this.MaxHealth = this.HealthPoints;
             this.Inventory = new List<Item>();
-            this.Coordinate = new Coordinate();
             this.Dungeon = dungeon;
         }
 
@@ -116,8 +115,10 @@ namespace DragonQuest
         public void StateSelector()
         {
             var room = GetLocation(this.Dungeon);
-            if(room.Backward)
-                this.state = 
+            if (room.Monster != null)
+            {
+                this.state = new BattleState();
+            } 
         }
 
 

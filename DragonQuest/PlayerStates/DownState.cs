@@ -25,13 +25,6 @@ namespace DragonQuest.PlayerStates
 
         }
 
-        
-
-        public override void MoveBackward()
-        {
-            Player.Coordinate.Y -= 1;
-        }
-
         public override void UseItem()
         {
             var PotionCounter = 0;
@@ -53,22 +46,24 @@ namespace DragonQuest.PlayerStates
             var inventoryItem = Console.ReadLine().ToLower();
             if(inventoryItem == "potion")
             {
-                Potion UsedPotion;
-                foreach(var item in Player.Inventory)
-                {
-                    var potion = typeof(Potion);
-                    if (item.GetType() == potion)
-                    {
-                        UsedPotion = (Potion)item;
-                        Player.Inventory.Remove(item);
-                        break;
-                    }
-                }
-                if(Player.HealthPoints + UsedPotion.Value > Player.MaxHealth)
-                {
+                UsePotion();
+            }
 
-                }
+            else if(inventoryItem == "tonic")
+            {
+                UseTonic();
+            }
+            else
+            {
+                Console.WriteLine("You have no such item. Please try again.");
+                UseItem();
             }
         }
+
+        public override void Battle()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

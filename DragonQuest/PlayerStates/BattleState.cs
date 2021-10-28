@@ -14,7 +14,7 @@ namespace DragonQuest.PlayerStates
 
         public override void Battle()
         {
-
+            Monster = Player.Dungeon.Dimensions[Player.X, Player.Y].Monster;
             Console.WriteLine($"You encounter a {Monster.Name}. Press < Enter > to attack!");
 
             while (this.Player.HealthPoints > 0 && this.Monster.HealthPoints > 0)
@@ -43,35 +43,17 @@ namespace DragonQuest.PlayerStates
                 if(Monster.HealthPoints <= 0)
                 {
                     Console.WriteLine($"With a devastating blow, the {Monster.Name} was defeated!");
+                    Monster = null;
                     break;
                 }
             }
         }
 
-        public override string WhichWay()
+        public override void WhichWay()
         {
             throw new NotImplementedException();
         }
 
-        public override void MoveLeft()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void MoveRight()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void MoveForward()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void MoveBackward()
-        {
-            throw new NotImplementedException();
-        }
 
         public override List<Item> ChestOpen()
         {
@@ -83,9 +65,6 @@ namespace DragonQuest.PlayerStates
             throw new NotImplementedException();
         }
 
-        public override void Status()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
