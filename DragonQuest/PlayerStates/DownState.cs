@@ -25,10 +25,15 @@ namespace DragonQuest.PlayerStates
 
         }
 
-        public override void Status()
-        {
-            Console.Write("Your inventory contains: ");
+        
 
+        public override void MoveBackward()
+        {
+            Player.Coordinate.Y -= 1;
+        }
+
+        public override void UseItem()
+        {
             var PotionCounter = 0;
             var TonicCounter = 0;
 
@@ -42,23 +47,28 @@ namespace DragonQuest.PlayerStates
                 {
                     TonicCounter += 1;
                 }
-
-
             }
-            Console.Write($"{PotionCounter} potions, and {TonicCounter} tonics, and {Player.GemCount} gems.");
-            Console.WriteLine($"Your current stats are {Player.HealthPoints} healthpoints, {Player.Luck} luck, and " +
-                                  $"{Player.Attack} attack.");
-        }
+            Console.WriteLine($"Which item would you like to use? You currently have: {PotionCounter} potions" +
+                                    $" and {TonicCounter} tonics");
+            var inventoryItem = Console.ReadLine().ToLower();
+            if(inventoryItem == "potion")
+            {
+                Potion UsedPotion;
+                foreach(var item in Player.Inventory)
+                {
+                    var potion = typeof(Potion);
+                    if (item.GetType() == potion)
+                    {
+                        UsedPotion = (Potion)item;
+                        Player.Inventory.Remove(item);
+                        break;
+                    }
+                }
+                if(Player.HealthPoints + UsedPotion.Value > Player.MaxHealth)
+                {
 
-        public override void MoveBackward()
-        {
-            Player.Coordinate.Y -= 1;
-        }
-
-        public override void UseItem()
-        {
-            
-            Console.WriteLine("Which item would you like to use? ");
+                }
+            }
         }
     }
 }

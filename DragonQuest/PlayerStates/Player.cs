@@ -16,9 +16,11 @@ namespace DragonQuest
         public int Luck { get; set; }
         public int Attack { get; set; }
         public int HealthPoints { get; set; }
+        public int MaxHealth { get; set; }
         public List<Item> Inventory { get; set; }
         public Dungeon Dungeon { get; set; }
-        public Coordinate Coordinate { get; set; }
+        public int X { get; set; } = 0;
+        public int Y { get; set; } = 0;
         public int GemCount { get; set; }
 
         public Player (Dungeon dungeon) 
@@ -46,6 +48,7 @@ namespace DragonQuest
                 this.HealthPoints = rand.Next(50, 56);
             }
 
+            this.MaxHealth = this.HealthPoints;
             this.Inventory = new List<Item>();
             this.Coordinate = new Coordinate();
             this.Dungeon = dungeon;
@@ -107,7 +110,7 @@ namespace DragonQuest
 
         public Room GetLocation(Dungeon dungeon)
         {
-            return dungeon.Dimensions[Coordinate.X, Coordinate.Y];
+            return dungeon.Dimensions[X, Y];
         }
 
         public void StateSelector()
