@@ -25,6 +25,7 @@ namespace DragonQuest
             {
                 loot.Add(new Potion());
             }
+            LootContents(loot);
             return loot;
         }
     }

@@ -22,6 +22,8 @@ namespace DragonQuest
         public int X { get; set; } = 0;
         public int Y { get; set; } = 0;
         public int GemCount { get; set; }
+        public bool IsDead { get; set; } = false;
+        public bool DragonIsDead { get; set; } = false;
 
         public Player (Dungeon dungeon) 
         {
@@ -64,7 +66,18 @@ namespace DragonQuest
             Console.WriteLine("Would you like 1.) an adventure of great luck, 2.) an adventure " +
                             "of great strength, or 3.) an adventure of great stamina? ");
             Console.Write("Please enter 1, 2, or 3: ");
-            var build = Convert.ToInt32(Console.ReadLine());
+            
+            var build = 0;
+            try
+            {
+            build = Convert.ToInt32(Console.ReadLine());
+
+            } catch (System.FormatException)
+            {
+                Console.WriteLine("Please enter a valid number.");
+                GetBuild();
+            }
+
             if(build != 1 && build != 2 && build != 3)
             {
                 Console.WriteLine("What was that? Please try again.");
@@ -99,14 +112,6 @@ namespace DragonQuest
                                   $"{Attack} attack.");
         }
 
-        public bool IsDead()
-        {
-            if (HealthPoints <= 0)
-                return true;
-
-            return false;
-        }
-
         public Room GetLocation(Dungeon dungeon)
         {
             return dungeon.Dimensions[X, Y];
@@ -115,6 +120,7 @@ namespace DragonQuest
         public void StateSelector()
         {
             var room = GetLocation(this.Dungeon);
+            GemChecker();
             if (room.Monster != null)
             {
                 this.state = new BattleState(this, this.Dungeon.Dimensions[X, Y].Monster);
@@ -181,7 +187,39 @@ namespace DragonQuest
             }
 
         }
+        public void Play()
+        {
+            if(this.GemCount == 3)
+            {
+                Console.WriteLine("You have enough gems. Press < Enter > to battle the dragon. Any other key to continue exploring");
+                var key = Console.ReadKey().Key;
+                if(key == ConsoleKey.Enter)
+                {
+                    this.state = new FinalBattleState(this);
+                    return;
+                }
+                    
+            }
+            this.StateSelector();
+            if(this.state.GetType() == typeof(BattleState))
+            {
+                this.state.Battle();
+            }
+            else
+            {
+                this.state.WhichWay();
+            }
+        }
 
+        private void GemChecker()
+        {
+            if (this.Dungeon.Dimensions[X, Y].Gem)
+            {
+                this.GemCount += 1;
+                this.Dungeon.Dimensions[X, Y].Gem = false;
+                Console.WriteLine("You find one of the three gems in the room, and add it to your collection!");
+            }
+        }
 
     }
 }

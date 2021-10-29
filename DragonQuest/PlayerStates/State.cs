@@ -63,6 +63,8 @@ namespace DragonQuest.PlayerStates
             InventoryStatus(Contents);
             foreach (var item in Contents)
                 Player.Inventory.Add(item);
+
+            Player.Dungeon.Dimensions[Player.X, Player.Y].Chest = null;
         }
 
         // This needs a fix for there being 0 of an item in the inventory.
@@ -154,8 +156,8 @@ namespace DragonQuest.PlayerStates
         public void Status()
         {
             InventoryStatus();
-            Console.WriteLine($"Your current stats are {Player.HealthPoints} healthpoints, {Player.Luck} luck, and " +
-                                  $"{Player.Attack} attack.");
+            Console.WriteLine($"Your current stats are: {Player.HealthPoints} healthpoints | {Player.Luck} luck | " +
+                                  $"{Player.Attack} attack");
         }
 
         public void InventoryStatus()
@@ -176,12 +178,12 @@ namespace DragonQuest.PlayerStates
                     TonicCounter += 1;
                 }
             }
-            Console.Write($"{PotionCounter} potions, and {TonicCounter} tonics, and {Player.GemCount} gems.");
+            Console.WriteLine($"potions: {PotionCounter} | tonics: {TonicCounter} | gems: {Player.GemCount}");
         }
 
         public void InventoryStatus(List<Item> loot)
         {
-            Console.Write("In the chest you find: ");
+            Console.Write("In the chest you find ");
 
             var PotionCounter = 0;
             var TonicCounter = 0;
@@ -197,7 +199,7 @@ namespace DragonQuest.PlayerStates
                     TonicCounter += 1;
                 }
             }
-            Console.Write($"{PotionCounter} potions, and {TonicCounter} tonics.");
+            Console.WriteLine($"potions: {PotionCounter}, Tonics: {TonicCounter}");
         }
     }
 }

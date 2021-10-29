@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragonQuest.Monsters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,16 @@ namespace DragonQuest
             else
             {
                 // Put initializers in
-                this.Monster = new Monster();
+                var rand = new Random();
+                var chooser = rand.Next(1, 3);
+                if(chooser == 1)
+                {
+                    this.Monster = new Spider();
+                }
+                else
+                {
+                    this.Monster = new Goblin();
+                }
             }
         }
     }

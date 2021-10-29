@@ -6,20 +6,18 @@ using System.Threading.Tasks;
 
 namespace DragonQuest.PlayerStates
 {
-    public class BattleState : State
+    public class FinalBattleState : State
     {
-
-
-        public BattleState(Player player, Monster monster) {
+        public FinalBattleState(Player player)
+        {
             this.Player = player;
-            this.Monster = monster;
+            this.Monster = new Dragon();
         }
 
         public override void Battle()
         {
-            
-            Console.WriteLine($"You encounter a {Monster.Name}. Press < Enter > to attack!");
-
+            Console.WriteLine("You have begun your final conflict with the dragon to escape the dungeon!");
+            Console.WriteLine("Prepare yourself for battle!");
             while (this.Player.HealthPoints > 0 && this.Monster.HealthPoints > 0)
             {
                 Console.WriteLine($"Current health -- {Player.Name}: {Player.HealthPoints} | {Monster.Name}: {Monster.HealthPoints}");
@@ -27,7 +25,8 @@ namespace DragonQuest.PlayerStates
                 var pDamage = 0;
                 var mDamage = 0;
                 var rand = new Random();
-                if (key != ConsoleKey.Enter) {
+                if (key != ConsoleKey.Enter)
+                {
                     Console.WriteLine("Invalid key, try again.");
                     continue;
                 }
@@ -44,24 +43,20 @@ namespace DragonQuest.PlayerStates
                     Player.IsDead = true;
                     break;
                 }
-                if(Monster.HealthPoints <= 0)
+                if (Monster.HealthPoints <= 0)
                 {
-                    // Fix this, make sure the player obtains the items.
-                    Console.WriteLine($"With a devastating blow, the {Monster.Name} was defeated!");
-                    this.Monster.DropLoot();
-                    Player.Dungeon.Dimensions[Player.X, Player.Y].Monster = null;
+                    Console.WriteLine($"With one final thrust from {Player.Name}'s sword, the {Monster.Name} was defeated!");
+                    Monster = null;
+                    Player.DragonIsDead = true;
                     break;
                 }
-                // Assess new state here
-            }
-                Player.StateSelector();
-        }
 
+            }
+        }
 
         public override void WhichWay()
         {
             throw new NotImplementedException();
         }
-
     }
 }

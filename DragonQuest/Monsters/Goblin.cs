@@ -27,6 +27,7 @@ namespace DragonQuest.Monsters
                 loot.Add(new Potion());
             }
             loot.Add(new Tonic());
+            LootContents(loot);
             return loot;
         }
     }
