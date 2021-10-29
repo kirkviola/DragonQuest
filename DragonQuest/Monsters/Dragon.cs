@@ -11,8 +11,13 @@ namespace DragonQuest
         public Dragon()
         {
             this.Name = "Dragon";
-            this.Strength = 15;
+            this.Attack = 15;
             this.HealthPoints = 100;
+        }
+
+        public override List<Item> DropLoot()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,11 +10,14 @@ namespace DragonQuest.PlayerStates
     {
 
 
-        public BattleState() { }
+        public BattleState(Player player, Monster monster) {
+            this.Player = player;
+            this.Monster = monster;
+        }
 
         public override void Battle()
         {
-            Monster = Player.Dungeon.Dimensions[Player.X, Player.Y].Monster;
+            
             Console.WriteLine($"You encounter a {Monster.Name}. Press < Enter > to attack!");
 
             while (this.Player.HealthPoints > 0 && this.Monster.HealthPoints > 0)
@@ -46,25 +49,15 @@ namespace DragonQuest.PlayerStates
                     Monster = null;
                     break;
                 }
+                // Assess new state here
             }
         }
+
 
         public override void WhichWay()
         {
             throw new NotImplementedException();
         }
-
-
-        public override List<Item> ChestOpen()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void UseItem()
-        {
-            throw new NotImplementedException();
-        }
-
 
     }
 }

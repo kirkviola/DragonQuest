@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace DragonQuest.PlayerStates
 {
-    class UpDownState
+    public class UpDownState : State
     {
+        public UpDownState (Player player)
+        {
+            this.Player = player;
+        }
+
+        public override void Battle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WhichWay()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -117,8 +117,69 @@ namespace DragonQuest
             var room = GetLocation(this.Dungeon);
             if (room.Monster != null)
             {
-                this.state = new BattleState();
+                this.state = new BattleState(this, this.Dungeon.Dimensions[X, Y].Monster);
             } 
+            else if(room.Backward && room.Forward && room.Left && room.Right)
+            {
+                this.state = new LeftRightUpDownState(this);
+            }
+            else if(room.Backward && room.Forward && room.Left && !room.Right)
+            {
+                this.state = new LeftUpDown(this);
+            }
+            else if(room.Backward && room.Forward && !room.Left && room.Right)
+            {
+                this.state = new UpRightDownState(this);
+            }
+            else if(room.Backward && !room.Forward && room.Left && room.Right)
+            {
+                this.state = new LeftDownRightState(this);
+            }
+            else if(!room.Backward && room.Forward && room.Left && room.Right)
+            {
+                this.state = new UpRightDownState(this);
+            }
+            else if(room.Backward && room.Forward && !room.Left && !room.Right)
+            {
+                this.state = new UpDownState(this);
+            }
+            else if(room.Backward && !room.Forward && room.Left && !room.Right)
+            {
+                this.state = new LeftDownState(this);
+            }
+            else if(!room.Backward && room.Forward && room.Left && !room.Right)
+            {
+                this.state = new LeftUpState(this);
+            }
+            else if(room.Backward && !room.Forward && !room.Left && room.Right)
+            {
+                this.state = new RightDownState(this);
+            }
+            else if(!room.Backward && room.Forward && !room.Left && room.Right)
+            {
+                this.state = new UpRightState(this);
+            }
+            else if(!room.Backward && !room.Forward && room.Left && room.Right)
+            {
+                this.state = new LeftRightState(this);
+            }
+            else if(!room.Backward && !room.Forward && !room.Left && room.Right)
+            {
+                this.state = new RightState(this);
+            }
+            else if(!room.Backward && !room.Forward && room.Left && !room.Right)
+            {
+                this.state = new LeftState(this);
+            }
+            else if(!room.Backward && room.Forward && !room.Left && !room.Right)
+            {
+                this.state = new UpState(this);
+            }
+            else if(room.Backward && !room.Forward && !room.Left && !room.Right)
+            {
+                this.state = new DownState(this);
+            }
+
         }
 
 

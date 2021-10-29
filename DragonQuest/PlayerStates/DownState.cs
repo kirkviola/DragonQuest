@@ -9,10 +9,14 @@ namespace DragonQuest.PlayerStates
 {
     class DownState : State
     {
-        public DownState() { }
+        public DownState(Player player)    
+        {
+            this.Player = player;
+        }
 
         public override void WhichWay()
         {
+            IsChest();
             Console.WriteLine("You can currently go BACKWARD. Type 'backward' to go back, 'status' " +
                                             "to see your current status, or 'use' to use an item");
 
@@ -22,42 +26,20 @@ namespace DragonQuest.PlayerStates
             {
                 MoveBackward();
             }
-
-        }
-
-        public override void UseItem()
-        {
-            var PotionCounter = 0;
-            var TonicCounter = 0;
-
-            foreach (var item in Player.Inventory)
+            else if(command == "status")
             {
-                if (item.GetType() == typeof(Potion))
-                {
-                    PotionCounter += 1;
-                }
-                if (item.GetType() == typeof(Tonic))
-                {
-                    TonicCounter += 1;
-                }
+                Status();
             }
-            Console.WriteLine($"Which item would you like to use? You currently have: {PotionCounter} potions" +
-                                    $" and {TonicCounter} tonics");
-            var inventoryItem = Console.ReadLine().ToLower();
-            if(inventoryItem == "potion")
+            else if(command == "use")
             {
-                UsePotion();
-            }
-
-            else if(inventoryItem == "tonic")
-            {
-                UseTonic();
+                UseItem();
             }
             else
             {
-                Console.WriteLine("You have no such item. Please try again.");
-                UseItem();
+                Console.WriteLine("You cannot go that way.");
+                WhichWay();
             }
+
         }
 
         public override void Battle()

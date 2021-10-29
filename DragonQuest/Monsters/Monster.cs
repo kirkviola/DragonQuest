@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonQuest
 {
-    public class Monster
+    public abstract class Monster
     {
         public string Name { get; set; }
         public int Attack { get; set; }
@@ -16,12 +16,8 @@ namespace DragonQuest
         public Monster() { }
 
 
-        public bool IsDead()
-        {
-            if (HealthPoints <= 0)
-                return true;
-            else
-                return false;
-        }
+        public abstract List<Item> DropLoot();
+        
+
     }
 }

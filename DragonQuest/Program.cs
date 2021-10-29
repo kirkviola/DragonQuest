@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragonQuest.PlayerStates;
+using System;
 
 namespace DragonQuest
 {
@@ -8,6 +9,7 @@ namespace DragonQuest
         {
             var dungeon = new Dungeon();
             var player = new Player(dungeon);
+
             var GameOver = false;
 
             while (!GameOver)
