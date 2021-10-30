@@ -13,20 +13,19 @@ namespace DragonQuest
             this.Name = "Spider";
             this.Attack = 5;
             this.HealthPoints = 20;
-            this.Item = new Potion();
+            this.Potions = new List<Potion>();
         }
 
-        public override List<Item> DropLoot()
+        public override void DropLoot()
         {
             var rand = new Random();
             var counter = rand.Next(1, 3);
-            var loot = new List<Item>();
             for(var i = 1; i <= counter; i++)
             {
-                loot.Add(new Potion());
+                this.Potions.Add(new Potion());
             }
-            LootContents(loot);
-            return loot;
+            LootContents(this.Potions);
+
         }
     }
 }

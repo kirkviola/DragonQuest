@@ -49,10 +49,17 @@ namespace DragonQuest.PlayerStates
                     // Fix this, make sure the player obtains the items.
                     Console.WriteLine($"With a devastating blow, the {Monster.Name} was defeated!");
                     this.Monster.DropLoot();
+                    if (Monster.Potions != null)
+                        foreach (var potion in this.Monster.Potions)
+                            Player.Potions.Add(potion);
+
+                    if (Monster.Tonics != null)
+                        foreach (var tonic in this.Monster.Tonics)
+                            Player.Tonics.Add(tonic);
+
                     Player.Dungeon.Dimensions[Player.X, Player.Y].Monster = null;
                     break;
                 }
-                // Assess new state here
             }
                 Player.StateSelector();
         }

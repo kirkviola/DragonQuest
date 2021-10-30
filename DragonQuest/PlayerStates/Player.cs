@@ -17,7 +17,8 @@ namespace DragonQuest
         public int Attack { get; set; }
         public int HealthPoints { get; set; }
         public int MaxHealth { get; set; }
-        public List<Item> Inventory { get; set; }
+        public List<Potion> Potions { get; set; }
+        public List<Tonic> Tonics { get; set; }
         public Dungeon Dungeon { get; set; }
         public int X { get; set; } = 0;
         public int Y { get; set; } = 0;
@@ -51,7 +52,8 @@ namespace DragonQuest
             }
 
             this.MaxHealth = this.HealthPoints;
-            this.Inventory = new List<Item>();
+            this.Potions = new List<Potion>();
+            this.Tonics = new List<Tonic>();
             this.Dungeon = dungeon;
         }
 
@@ -86,31 +88,6 @@ namespace DragonQuest
             return build;
         }
 
-        // Update this method as items are added to the game.
-        public void Status()
-        {
-            Console.Write("Your inventory contains: ");
-         
-            var PotionCounter = 0;
-            var TonicCounter = 0;
-
-            foreach(var item in this.Inventory)
-            {
-                if(item.GetType() == typeof(Potion))
-                {
-                    PotionCounter += 1;
-                }
-                if(item.GetType() == typeof(Tonic))
-                {
-                    TonicCounter += 1;
-                }
-
-        
-            }
-            Console.Write($"{PotionCounter} potions, and {TonicCounter} tonics, and {GemCount} gems.");
-            Console.WriteLine($"Your current stats are {HealthPoints} healthpoints, {Luck} luck, and " +
-                                  $"{Attack} attack.");
-        }
 
         public Room GetLocation(Dungeon dungeon)
         {
@@ -119,6 +96,7 @@ namespace DragonQuest
 
         public void StateSelector()
         {
+            
             var room = GetLocation(this.Dungeon);
             GemChecker();
             if (room.Monster != null)
@@ -200,6 +178,8 @@ namespace DragonQuest
                 }
                     
             }
+            if (this.IsDead)
+                return;
             this.StateSelector();
             if(this.state.GetType() == typeof(BattleState))
             {

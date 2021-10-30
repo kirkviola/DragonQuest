@@ -28,41 +28,48 @@ namespace DragonQuest.PlayerStates
         public void Open()
         {
             var roll = Player.Luck;
-            var Contents = new List<Item>();
+            var Potions = new List<Potion>();
+            var Tonics = new List<Tonic>();
             if (roll <= 5)
             {
-                Contents.Add(new Potion());
+                Potions.Add(new Potion());
             }
             else if (roll > 5 && roll <= 10)
             {
-                Contents.Add(new Potion());
-                Contents.Add(new Tonic());
+                Potions.Add(new Potion());
+                Tonics.Add(new Tonic());
             }
             else if (roll > 10 && roll <= 15)
             {
                 for (var i = 0; i < 2; i++)
-                    Contents.Add(new Potion());
+                    Potions.Add(new Potion());
                 
-                Contents.Add(new Tonic());
+                Tonics.Add(new Tonic());
             }
             else if (roll > 15 && roll <= 20)
             {
                 for (var i = 0; i < 2; i++)
-                    Contents.Add(new Potion());
+                    Potions.Add(new Potion());
                 for (var i = 0; i < 2; i++)
-                    Contents.Add(new Tonic());
+                    Tonics.Add(new Tonic());
             }
             else
             {
                 for (var i = 0; i < 3; i++)
-                    Contents.Add(new Potion());
+                    Potions.Add(new Potion());
 
                 for (var i = 0; i < 2; i++)
-                    Contents.Add(new Tonic());
+                    Tonics.Add(new Tonic());
             }
-            InventoryStatus(Contents);
-            foreach (var item in Contents)
-                Player.Inventory.Add(item);
+            InventoryStatus(Potions, Tonics);
+            foreach (var potion in Potions)
+                Player.Potions.Add(potion);
+
+            foreach (var tonic in Tonics)
+                Player.Tonics.Add(tonic);
+
+
+                
 
             Player.Dungeon.Dimensions[Player.X, Player.Y].Chest = null;
         }
@@ -70,13 +77,32 @@ namespace DragonQuest.PlayerStates
         // This needs a fix for there being 0 of an item in the inventory.
         public void UseItem()
         {
+            if(Player.Potions.Count == 0 && Player.Tonics.Count == 0)
+            {
+                Console.WriteLine("Inventory empty!");
+                return;
+            }
             InventoryStatus();
             Console.WriteLine("Which item would you like to use, POTION or TONIC?");
             var item = Console.ReadLine().ToLower();
             if (item == "potion")
-                UsePotion();
+            {
+                if(Player.Potions.Count == 0)
+                {
+                    Console.WriteLine("You are out of potions.");
+                }
+                else
+                    UsePotion();
+            }
             else if (item == "tonic")
-                UseTonic();
+            {
+                if(Player.Tonics.Count == 0)
+                {
+                    Console.WriteLine("You are out of tonics.");
+                }
+                else
+                    UseTonic();
+            }
             else
             {
                 Console.WriteLine("You do not have that item, please try again.");
@@ -86,17 +112,9 @@ namespace DragonQuest.PlayerStates
         }
         public void UsePotion()
         {
-            var PotionStrength = 0;
-            foreach (var item in Player.Inventory)
-            {
-                var potion = typeof(Potion);
-                if (item.GetType() == potion)
-                {
-                    PotionStrength = item.Value;
-                    Player.Inventory.Remove(item);
-                    break;
-                }
-            }
+            var PotionStrength = Player.Potions[0].Value;
+            Player.Potions.RemoveAt(0);
+            
             if (Player.HealthPoints + PotionStrength > Player.MaxHealth)
             {
                 Player.HealthPoints = Player.MaxHealth;
@@ -118,16 +136,19 @@ namespace DragonQuest.PlayerStates
                 Player.HealthPoints += 1;
                 Player.MaxHealth += 1;
                 Console.WriteLine("Max health increased!");
+                Player.Tonics.RemoveAt(0);
             }
             else if (tonic == "attack")
             {
                 Player.Attack += 1;
                 Console.WriteLine("Attack increased!");
+                Player.Tonics.RemoveAt(0);
             }
             else if (tonic == "luck")
             {
                 Player.Luck += 1;
                 Console.WriteLine("Luck increased!");
+                Player.Tonics.RemoveAt(0);
             }
             else
             {
@@ -164,42 +185,15 @@ namespace DragonQuest.PlayerStates
         {
             Console.Write("Your inventory contains: ");
 
-            var PotionCounter = 0;
-            var TonicCounter = 0;
-
-            foreach (var item in Player.Inventory)
-            {
-                if (item.GetType() == typeof(Potion))
-                {
-                    PotionCounter += 1;
-                }
-                if (item.GetType() == typeof(Tonic))
-                {
-                    TonicCounter += 1;
-                }
-            }
-            Console.WriteLine($"potions: {PotionCounter} | tonics: {TonicCounter} | gems: {Player.GemCount}");
+            
+            Console.WriteLine($"potions: {Player.Potions.Count} | tonics: {Player.Tonics.Count} | gems: {Player.GemCount}");
         }
 
-        public void InventoryStatus(List<Item> loot)
+        public void InventoryStatus(List<Potion> potions, List<Tonic> tonics)
         {
             Console.Write("In the chest you find ");
 
-            var PotionCounter = 0;
-            var TonicCounter = 0;
-
-            foreach (var item in loot)
-            {
-                if (item.GetType() == typeof(Potion))
-                {
-                    PotionCounter += 1;
-                }
-                if (item.GetType() == typeof(Tonic))
-                {
-                    TonicCounter += 1;
-                }
-            }
-            Console.WriteLine($"potions: {PotionCounter}, Tonics: {TonicCounter}");
+            Console.WriteLine($"potions: {potions.Count}, Tonics: {tonics.Count}");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace DragonQuest
             this.HealthPoints = 100;
         }
 
-        public override List<Item> DropLoot()
+        public override void DropLoot()
         {
             throw new NotImplementedException();
         }

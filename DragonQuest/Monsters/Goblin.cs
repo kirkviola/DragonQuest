@@ -13,22 +13,21 @@ namespace DragonQuest.Monsters
         {
             this.Name = "Goblin";
             this.Attack = 10;
-            this.Item = new Tonic();
             this.HealthPoints = 30;
+            this.Potions = new List<Potion>();
+            this.Tonics = new List<Tonic>();
         }
 
-        public override List<Item> DropLoot()
+        public override void DropLoot()
         {
             var rand = new Random();
             var counter = rand.Next(1, 4);
-            var loot = new List<Item>();
             for (var i = 1; i <= counter; i++)
             {
-                loot.Add(new Potion());
+                Potions.Add(new Potion());
             }
-            loot.Add(new Tonic());
-            LootContents(loot);
-            return loot;
+            Tonics.Add(new Tonic());
+            LootContents(this.Potions, this.Tonics);
         }
     }
 }
