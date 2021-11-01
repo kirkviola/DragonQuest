@@ -18,6 +18,7 @@ namespace DragonQuest.PlayerStates
         {
             Console.WriteLine("You have begun your final conflict with the dragon to escape the dungeon!");
             Console.WriteLine("Prepare yourself for battle!");
+            Console.WriteLine("Press < Enter > to attack, < Spacebar > to use one of your items");
             while (this.Player.HealthPoints > 0 && this.Monster.HealthPoints > 0)
             {
                 Console.WriteLine($"Current health -- {Player.Name}: {Player.HealthPoints} | {Monster.Name}: {Monster.HealthPoints}");
@@ -25,7 +26,13 @@ namespace DragonQuest.PlayerStates
                 var pDamage = 0;
                 var mDamage = 0;
                 var rand = new Random();
-                if (key != ConsoleKey.Enter)
+                
+                if (key == ConsoleKey.Spacebar)
+                {
+                    UseItem();
+                    continue;
+                }
+                else if (key != ConsoleKey.Enter)
                 {
                     Console.WriteLine("Invalid key, try again.");
                     continue;

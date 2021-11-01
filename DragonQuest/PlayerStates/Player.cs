@@ -106,10 +106,12 @@ namespace DragonQuest
                 if (key == ConsoleKey.Enter)
                 {
                     this.state = new FinalBattleState(this);
+                    return;
                 }
 
             }
-            else if (room.Monster != null)
+
+            if (room.Monster != null)
             {
                 this.state = new BattleState(this, this.Dungeon.Dimensions[X, Y].Monster);
             } 
@@ -182,7 +184,11 @@ namespace DragonQuest
             if (this.IsDead)
                 return;
             this.StateSelector();
-            if(this.state.GetType() == typeof(BattleState))
+            if(this.state.GetType() == typeof(FinalBattleState))
+            {
+                this.state.Battle();
+            }
+            else if(this.state.GetType() == typeof(BattleState))
             {
                 this.state.Battle();
             }
