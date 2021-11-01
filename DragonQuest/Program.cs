@@ -12,9 +12,11 @@ namespace DragonQuest
 
 
 
-            while (!player.IsDead || !player.DragonIsDead)
+            while (!player.IsDead)
             {
                 player.Play();
+                if (player.DragonIsDead)
+                    break;
             }
 
             if (player.DragonIsDead)

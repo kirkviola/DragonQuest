@@ -16,7 +16,7 @@ namespace DragonQuest.PlayerStates
         public override void WhichWay()
         {
             IsChest();
-            Console.WriteLine("You can currently go FORWARD or LEFT. or RIGHT. Type" +
+            Console.WriteLine("You can currently go FORWARD or LEFT. Type" +
                  " 'forward' to go forward, 'left' to go left, 'status' " +
                                             "to see your current status, or 'use' to use an item");
 

@@ -10,6 +10,7 @@ namespace DragonQuest.PlayerStates
     {
         public RightState(Player player)
         {
+            this.Player = player;
         }
 
         public override void Battle()

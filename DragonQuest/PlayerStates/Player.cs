@@ -96,10 +96,20 @@ namespace DragonQuest
 
         public void StateSelector()
         {
-            
+
             var room = GetLocation(this.Dungeon);
-            GemChecker();
-            if (room.Monster != null)
+            
+            if (this.GemCount == 3)
+            {
+                Console.WriteLine("You have enough gems. Press < Enter > to battle the dragon. Any other key to continue exploring");
+                var key = Console.ReadKey().Key;
+                if (key == ConsoleKey.Enter)
+                {
+                    this.state = new FinalBattleState(this);
+                }
+
+            }
+            else if (room.Monster != null)
             {
                 this.state = new BattleState(this, this.Dungeon.Dimensions[X, Y].Monster);
             } 
@@ -163,21 +173,12 @@ namespace DragonQuest
             {
                 this.state = new DownState(this);
             }
+            GemChecker();
 
         }
         public void Play()
         {
-            if(this.GemCount == 3)
-            {
-                Console.WriteLine("You have enough gems. Press < Enter > to battle the dragon. Any other key to continue exploring");
-                var key = Console.ReadKey().Key;
-                if(key == ConsoleKey.Enter)
-                {
-                    this.state = new FinalBattleState(this);
-                    return;
-                }
-                    
-            }
+            
             if (this.IsDead)
                 return;
             this.StateSelector();
