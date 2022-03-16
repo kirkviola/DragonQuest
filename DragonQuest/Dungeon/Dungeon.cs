@@ -134,7 +134,7 @@ namespace DragonQuest
 
         private void RoomTexts()
         {
-            this.DungeonTexts = new List<string>() { "You awaken in the darkness with nothing but you wits, " +
+            this.DungeonTexts = new List<string>() { "You awaken in the darkness with nothing but your wits, " +
                                "your trusty sword and shield, and your own luck, however much or little " +
                                "that may be. To escape, find three magical gems hidden within the dungeon " +
                                "and use their power to transport yourself back to the Kingdom of Langorr.",
